@@ -1,0 +1,21 @@
+<h1>Listing author_repositories</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @author_repositories.each do |author_repository| %>
+  <tr>
+    <td><%= link_to 'Show', author_repository %></td>
+    <td><%= link_to 'Edit', edit_author_repository_path(author_repository) %></td>
+    <td><%= link_to 'Destroy', author_repository, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Author repository', new_author_repository_path %>

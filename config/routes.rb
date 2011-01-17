@@ -1,4 +1,16 @@
 Timesheet::Application.routes.draw do
+  devise_for :users
+
+  resources :author_repositories
+
+#  resources :users
+
+  resources :git_logs
+
+  resources :repositories
+
+  resources :authors
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +60,7 @@ Timesheet::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+   root :to => "user#index"
 
   # See how all your routes lay out with "rake routes"
 

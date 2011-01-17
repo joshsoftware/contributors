@@ -1,0 +1,17 @@
+<%= form_for(@git_log) do |f| %>
+  <% if @git_log.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@git_log.errors.count, "error") %> prohibited this git_log from being saved:</h2>
+
+      <ul>
+      <% @git_log.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

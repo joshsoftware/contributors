@@ -1,0 +1,17 @@
+<%= form_for(@author_repository) do |f| %>
+  <% if @author_repository.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@author_repository.errors.count, "error") %> prohibited this author_repository from being saved:</h2>
+
+      <ul>
+      <% @author_repository.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
