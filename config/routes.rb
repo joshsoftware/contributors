@@ -1,5 +1,7 @@
 Timesheet::Application.routes.draw do
   devise_for :users
+  # :after_sign_in_path_for => 'authors#index' as :author_index
+  # :after_sign_out_path_for => 'authors#index' as :author_index
 
   resources :author_repositories
 
@@ -10,6 +12,9 @@ Timesheet::Application.routes.draw do
   resources :repositories
 
   resources :authors
+  
+#  match 'users/mainpage' => 'users#mainpage', :as => 'user_mainpage'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -60,7 +65,7 @@ Timesheet::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => "user#index"
+   root :to => "authors#index"
 
   # See how all your routes lay out with "rake routes"
 
