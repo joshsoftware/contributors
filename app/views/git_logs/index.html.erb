@@ -2,13 +2,20 @@
 
 <table>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Commit id</th>
+    <th>Comment</th>
+    <th>Author</th>
+    <th>Repository</th>
+    <th>Commited At</th>
   </tr>
 
 <% @git_logs.each do |git_log| %>
   <tr>
+    <td><%=git_log.sha %></td>
+    <td><%=git_log.comment  %></td>
+    <td><%=git_log.author_id  %></td>
+    <td><%=git_log.repository_id  %></td>
+    <td><%=git_log.committed_at  %></td>
     <td><%= link_to 'Show', git_log %></td>
     <td><%= link_to 'Edit', edit_git_log_path(git_log) %></td>
     <td><%= link_to 'Destroy', git_log, :confirm => 'Are you sure?', :method => :delete %></td>

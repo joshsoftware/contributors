@@ -80,4 +80,17 @@ class AuthorsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+ 
+ #generate timesheet, scopes are defined in models/git_hub.rb 
+ def create_timesheet
+   #mandatory parameter params[:author]
+   @author = Author.find(params[:author]) 
+   to = params[:to] || Time.now
+ 
+   #optional paramaeters :from, :to, :repository
+   @logs = @author.git_logs.to(to)
+   @logs = @logs.by_repository(params[:repository]) if params[:repository]
+   @logs = @logs.from(params[:from]) if params[:form]
+ end
+
 end
