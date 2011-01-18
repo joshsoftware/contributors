@@ -47,6 +47,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    multi_json (0.0.5)
     mysql2 (0.2.6)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -82,5 +83,6 @@ PLATFORMS
 DEPENDENCIES
   curl
   devise
+  multi_json
   mysql2
   rails (= 3.0.3)

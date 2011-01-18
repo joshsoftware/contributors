@@ -1,17 +1,20 @@
 Timesheet::Application.routes.draw do
   devise_for :users
-  # :after_sign_in_path_for => 'authors#index' as :author_index
-  # :after_sign_out_path_for => 'authors#index' as :author_index
-
+# :after_sign_in_path_for => 'authors#index' as :author_index
+# :after_sign_out_path_for => 'authors#index' as :author_index
+# :after_sign_in_path_for => 'home#index as home_index
   resources :author_repositories
 
-#  resources :users
+# resources :users
 
   resources :git_logs
 
   resources :repositories
 
   resources :authors
+
+  match 'home/index' => 'home#index', :as => 'home_index'
+  match 'repositories/populate' => 'repositories#populate'
   
 #  match 'users/mainpage' => 'users#mainpage', :as => 'user_mainpage'
 
@@ -65,7 +68,7 @@ Timesheet::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => "authors#index"
+   root :to => "home#index"
 
   # See how all your routes lay out with "rake routes"
 
