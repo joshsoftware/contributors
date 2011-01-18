@@ -13,16 +13,12 @@
   <tr>
     <td><%=git_log.sha %></td>
     <td><%=git_log.comment  %></td>
-    <td><%=git_log.author_id  %></td>
-    <td><%=git_log.repository_id  %></td>
+    <td><%=git_log.author.name %></td>
+    <td><%=git_log.repository.name  %></td>
     <td><%=git_log.committed_at  %></td>
-    <td><%= link_to 'Show', git_log %></td>
-    <td><%= link_to 'Edit', edit_git_log_path(git_log) %></td>
-    <td><%= link_to 'Destroy', git_log, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Git log', new_git_log_path %>

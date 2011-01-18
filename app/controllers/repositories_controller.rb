@@ -87,12 +87,13 @@ class RepositoriesController < ApplicationController
     # get repository (mandatory): params[:repository]
     @repository = Repository.find(params[:repository])
     to = params[:to] || Time.now
-    
+   
+    @author_list = Author.all  
     # params:(OPTIONAL)	:to, :from :author  
     @logs = @repository.git_logs.to(to)
     @logs = @logs.by_author(params[:author]) if params[:author]
     @logs = @logs.from(params[:from]) if params[:form]
-
+  
   end
 
   # user defined method th parse, verify the git url and populate the repository
@@ -137,6 +138,6 @@ class RepositoriesController < ApplicationController
       end
     end
   end
->>>>>>> 42d8209447c2b5524688a7cd970af01a58e827d1
+
 end
 
