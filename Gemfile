@@ -8,6 +8,8 @@ gem 'rspec-rails', '>= 2.0.0.beta'
 gem 'mysql2'
 gem 'devise'
 gem 'curl'
+gem 'will_paginate'
+gem 'multi_json'
 
 #gem 'sqlite3-ruby', :require => 'sqlite3'
 

@@ -2,8 +2,8 @@ class RepositoriesController < ApplicationController
   # GET /repositories
   # GET /repositories.xml
   def index
-    @repositories = Repository.all
-
+    @repository = Repository.all
+    @repositories = Repository.all.paginate ({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @repositories }
@@ -80,4 +80,48 @@ class RepositoriesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # user defined method th parse, verify the git url and populate the repository
+
+  def populate
+
+    String name = params['repository']['name']
+    arr = /^\w*[@|:][\/\/]*github.com[:?\/]*([\w]+)\/([\w\-\.]+).git$/.match(name).captures
+    #str = "http://github.com/api/v2/json/commits/list/".concat(arr[0]).concat("/").concat(arr[1]).concat("/master")
+    str = "http://github.com/api/v2/json/commits/list/" + arr[0] + "/" + arr[1] + "/master"
+    url = URI.parse(str)
+    res = Net::HTTP.get_response(url)
+    if res.class == Net::HTTPOK
+
+      @repository = Repository.new
+      @author_repository = AuthorRepository.new
+      @repository.name = arr[0] + "/" +arr[1]
+      @repository.url = name
+      @repository.user = current_user
+      @repository.save
+
+      commits = MultiJson.decode(res.body)
+      commits['commits'].each do |commit|
+
+        @git_log = GitLog.new
+
+        @git_log.sha = commit['id']
+        @git_log.comment = commit['message']
+        @git_log.committed_at = commit['committed_date']
+        @author = Author.find_by_name(commit['author']['name']) 
+        if @author == nil 
+          @author = Author.new
+          @author.name = commit['author']['name']
+          @author.email = commit['author']['email']
+          @author.save
+        end
+        @git_log.author = @author_repository.author = @author
+        @git_log.repository = @author_repository.repository = @repository
+
+        @git_log.save
+        @author_repository.save
+      end
+    end
+  end
 end
+
