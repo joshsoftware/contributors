@@ -75,6 +75,7 @@ GEM
     unidecoder (1.1.1)
     warden (1.0.3)
       rack (>= 1.0.0)
+    will_paginate (2.3.15)
 
 PLATFORMS
   ruby
@@ -84,3 +85,4 @@ DEPENDENCIES
   devise
   mysql2
   rails (= 3.0.3)
+  will_paginate
