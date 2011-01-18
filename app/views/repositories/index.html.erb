@@ -4,18 +4,14 @@
   <tr>
     <th>Name</th>
     <th>Url</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Owner</th>
   </tr>
 
+<%= will_paginate %>
 <% @repositories.each do |repository| %>
   <tr>
     <td><%= repository.name %></td>
     <td><%= repository.url %></td>
-    <td><%= link_to 'Show', repository %></td>
-    <td><%= link_to 'Edit', edit_repository_path(repository) %></td>
-    <td><%= link_to 'Destroy', repository, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
