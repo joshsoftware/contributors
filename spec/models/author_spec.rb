@@ -46,8 +46,8 @@ describe "Authors" do
     end
 
   end
-
-  ########Author tables entries should not be edit
+end
+########Author tables entries should not be edit
 =begin
   context "should not edit the author entries" do
 
@@ -57,7 +57,7 @@ describe "Authors" do
 
 =end
 
-  #####Can't remove entries from author table
+#####Can't remove entries from author table
 =begin
 context "should destroy author if"
 
