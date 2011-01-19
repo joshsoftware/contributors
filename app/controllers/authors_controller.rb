@@ -88,7 +88,7 @@ class AuthorsController < ApplicationController
    to = params[:to] || Time.now
 
    @repository_list = Repository.all
- 
+
    #optional paramaeters :from, :to, :repository
    @logs = @author.git_logs.to(to)
    @logs = @logs.by_repository(params[:repository]) if params[:repository]

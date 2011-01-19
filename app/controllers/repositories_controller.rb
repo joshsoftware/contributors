@@ -10,17 +10,6 @@ class RepositoriesController < ApplicationController
     end
   end
 
-  # GET /repositories/1
-  # GET /repositories/1.xml
-  def show
-    @repository = Repository.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @repository }
-    end
-  end
-
   # GET /repositories/new
   # GET /repositories/new.xml
   def new
@@ -29,43 +18,6 @@ class RepositoriesController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @repository }
-    end
-  end
-
-  # GET /repositories/1/edit
-  def edit
-    @repository = Repository.find(params[:id])
-  end
-
-  # POST /repositories
-  # POST /repositories.xml
-  def create
-    @repository = Repository.new(params[:repository])
-
-    respond_to do |format|
-      if @repository.save
-        format.html { redirect_to(@repository, :notice => 'Repository was successfully created.') }
-        format.xml  { render :xml => @repository, :status => :created, :location => @repository }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @repository.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /repositories/1
-  # PUT /repositories/1.xml
-  def update
-    @repository = Repository.find(params[:id])
-
-    respond_to do |format|
-      if @repository.update_attributes(params[:repository])
-        format.html { redirect_to(@repository, :notice => 'Repository was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @repository.errors, :status => :unprocessable_entity }
-      end
     end
   end
 
@@ -87,39 +39,31 @@ class RepositoriesController < ApplicationController
     # get repository (mandatory): params[:repository]
     @repository = Repository.find(params[:repository])
     to = params[:to] || Time.now
-   
+
     @author_list = Author.all  
     # params:(OPTIONAL)	:to, :from :author  
     @logs = @repository.git_logs.to(to)
     @logs = @logs.by_author(params[:author]) if params[:author]
     @logs = @logs.from(params[:from]) if params[:form]
-  
   end
 
+
   # user defined method th parse, verify the git url and populate the repository
-
-  def populate
-
-    String name = params['repository']['name']
-    arr = /^\w*[@|:][\/\/]*github.com[:?\/]*([\w]+)\/([\w\-\.]+).git$/.match(name).captures
-    #str = "http://github.com/api/v2/json/commits/list/".concat(arr[0]).concat("/").concat(arr[1]).concat("/master")
-    str = "http://github.com/api/v2/json/commits/list/" + arr[0] + "/" + arr[1] + "/master"
+  def create
+    @repo = Repository.new(params['repository'])
+    repo_name = /^\w*[@|:][\/\/]*github.com[:?\/]*(([\w]+)\/([\w\-\.]+)).git$/.match(params['repository']['url']).captures
+    @repo.name = repo_name.first if @repo.name.blank?
+    str = "http://github.com/api/v2/json/commits/list/" + repo_name.first  + "/master"
     url = URI.parse(str)
     res = Net::HTTP.get_response(url)
     if res.class == Net::HTTPOK
-
-      @repository = Repository.new
-      @author_repository = AuthorRepository.new
-      @repository.name = arr[0] + "/" +arr[1]
-      @repository.url = name
-      @repository.user = current_user
       @repository.save
-
+      @repo.user = current_user
+      @repo.save
+      @author_repository = AuthorRepository.new
       commits = MultiJson.decode(res.body)
       commits['commits'].each do |commit|
-
         @git_log = GitLog.new
-
         @git_log.sha = commit['id']
         @git_log.comment = commit['message']
         @git_log.committed_at = commit['committed_date']
@@ -131,13 +75,14 @@ class RepositoriesController < ApplicationController
           @author.save
         end
         @git_log.author = @author_repository.author = @author
-        @git_log.repository = @author_repository.repository = @repository
-
+        @git_log.repository = @author_repository.repository = @repo
         @git_log.save
         @author_repository.save
       end
+      flash[:notice] = "Successfully Created"
+    elsif res.class == Net::HTTPNotFound
+      flash[:notice] = "Repository Invalid"
     end
+    redirect_to :action => "index"
   end
-
 end
-

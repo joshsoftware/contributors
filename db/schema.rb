@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110118080538) do
+ActiveRecord::Schema.define(:version => 20110119081532) do
 
   create_table "author_repositories", :force => true do |t|
     t.integer  "author_id"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20110118080538) do
     t.string   "comment"
     t.integer  "author_id"
     t.integer  "repository_id"
-    t.time     "committed_at"
+    t.datetime "committed_at",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

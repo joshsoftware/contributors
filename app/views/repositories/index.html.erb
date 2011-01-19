@@ -10,7 +10,7 @@
 <%= will_paginate %>
 <% @repositories.each do |repository| %>
   <tr>
-    <td><%= repository.name %></td>
+GitHub Repository Url:
     <td><%= repository.url %></td>
   </tr>
 <% end %>
@@ -18,4 +18,4 @@
 
 <br />
 
-<%= link_to 'New Repository', new_repository_path %>
+<%= link_to 'Add', new_repository_path %>
