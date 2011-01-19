@@ -2,9 +2,11 @@ class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.xml
   before_filter :init
+
   def init
     @selected = 'authors'
   end
+  
   def index
     @authors = Author.all
     @authors = Author.all.paginate ({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
