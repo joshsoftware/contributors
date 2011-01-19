@@ -63,7 +63,7 @@ class RepositoriesController < ApplicationController
     url = URI.parse(str)
     res = Net::HTTP.get_response(url)
     if res.class == Net::HTTPOK
-      @repository.save
+      #@repository.save
       @repo.user = current_user
       @repo.save
       @author_repository = AuthorRepository.new
