@@ -85,6 +85,21 @@ class RepositoriesController < ApplicationController
     end
   end
 
+
+  #generate timesheet , scopes are defined in models/git_log.rb
+  def create_timesheet
+    # get repository (mandatory): params[:repository]
+    @repository = Repository.find(params[:repository])
+    to = params[:to] || Time.now
+   
+    @author_list = Author.all  
+    # params:(OPTIONAL)	:to, :from :author  
+    @logs = @repository.git_logs.to(to)
+    @logs = @logs.by_author(params[:author]) if params[:author]
+    @logs = @logs.from(params[:from]) if params[:form]
+  
+  end
+
   # user defined method th parse, verify the git url and populate the repository
 
   def populate
@@ -127,5 +142,6 @@ class RepositoriesController < ApplicationController
       end
     end
   end
+
 end
 
