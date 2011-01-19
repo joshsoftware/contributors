@@ -1,4 +1,4 @@
-<h1>Listing authorssssssss</h1>
+<h1>Listing authors</h1>
 
 <table>
   <tr>
@@ -10,7 +10,7 @@
 <%= will_paginate %>
 <% @authors.each do |author| %>
   <tr>
-    <td><%= author.name %></td>
+    <td><%= link_to "#{author.name}", author_timesheet_path(author) %></td>
     <td><%= author.email %></td>
   </tr>
 <% end %>

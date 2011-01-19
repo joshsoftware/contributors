@@ -1,9 +1,14 @@
 class GitLogsController < ApplicationController
   # GET /git_logs
   # GET /git_logs.xml
+  before_filter :init
+  def init
+    @selected = 'logs'
+  end
   def index
-    @git_logs = GitLog.all
-
+ #   @git_logs = GitLog.all
+    @repositories = Repository.all
+    @authors = Author.all
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @git_logs }
