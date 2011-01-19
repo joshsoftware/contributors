@@ -7,7 +7,7 @@ class RepositoriesController < ApplicationController
   end
   def index
     @repository = Repository.all
-    @repositories = Repository.all.paginate ({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
+    @repositories = Repository.all.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @repositories }
@@ -90,14 +90,15 @@ class RepositoriesController < ApplicationController
   def create_timesheet
     # get repository (mandatory): params[:repository]
     @repository = Repository.find(params[:repository])
-    to = params[:to] || Time.now
-   
     @author_list = Author.all  
+    
+    to =  params[:to].empty? ? Time.now : params[:to] 
     # params:(OPTIONAL)	:to, :from :author  
+ 
     @logs = @repository.git_logs.to(to)
-    @logs = @logs.by_author(params[:author]) if params[:author]
-    @logs = @logs.from(params[:from]) if params[:form]
-  
+    @logs = @logs.by_author(paramsi[:author]) if params[:author]
+    @logs = @logs.from(params[:from]) if !params[:from].empty?
+    render "git_logs/index" 
   end
 
   # user defined method th parse, verify the git url and populate the repository
