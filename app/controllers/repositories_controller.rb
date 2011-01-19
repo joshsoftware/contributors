@@ -3,7 +3,7 @@ class RepositoriesController < ApplicationController
   # GET /repositories.xml
   def index
     @repository = Repository.all
-    @repositories = Repository.all.paginate ({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
+    @repositories = Repository.all.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @repositories }
@@ -50,7 +50,13 @@ class RepositoriesController < ApplicationController
 
   # user defined method th parse, verify the git url and populate the repository
   def create
-    @repo = Repository.new(params['repository'])
+    if Repository.find_by_url(params['repository']['url']) == nil
+      @repo = Repository.new(params['repository'])
+    else
+      flash[:notice] = "Repository Present"
+      @repo = Repository.find_by_url(params['repository']['url'])
+    end
+
     repo_name = /^\w*[@|:][\/\/]*github.com[:?\/]*(([\w]+)\/([\w\-\.]+)).git$/.match(params['repository']['url']).captures
     @repo.name = repo_name.first if @repo.name.blank?
     str = "http://github.com/api/v2/json/commits/list/" + repo_name.first  + "/master"
