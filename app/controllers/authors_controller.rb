@@ -3,7 +3,7 @@ class AuthorsController < ApplicationController
   # GET /authors.xml
   def index
     @authors = Author.all 
-    @authors = Author.all.paginate ({:page => params[:page], :per_page => 5})
+    @authors = Author.all.paginate({:page => params[:page], :per_page => 5})
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @authors }

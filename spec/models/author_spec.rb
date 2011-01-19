@@ -4,31 +4,25 @@ describe "Authors" do
 
   context "should display all authors if" do
 
-    it "user has LOGGED IN" do
-    end
+    it "user has LOGGED IN" 
 
   end
 
   context "should not display all authors if" do
 
-    it "user is not logged in" do
-    end
+    it "user is not logged in" 
 
   end
 
   context "should create new author if" do
 
-    it "EMAIL field is NOT BLANK" do
-    end
+    it "EMAIL field is NOT BLANK" 
 
-    it "EMAIL is VALID"do
-    end
+    it "EMAIL is VALID"
 
-    it "EMAIL does  NOT EXIST" do
-    end
+    it "EMAIL does  NOT EXIST" 
 
-    it "NAME is BLANK" do      
-    end
+    it "NAME is BLANK" 
 
   end
 
@@ -36,14 +30,11 @@ describe "Authors" do
 
   context "should not create new author if" do
 
-    it "EMAIL field is BLANK" do
-    end
+    it "EMAIL field is BLANK" 
 
-    it "EMAIL is NOT VALID" do
-    end
+    it "EMAIL is NOT VALID" 
 
-    it "EMAIL is already EXIST" do
-    end
+    it "EMAIL is already EXIST" 
 
   end
 end

@@ -3,7 +3,7 @@ class RepositoriesController < ApplicationController
   # GET /repositories.xml
   def index
     @repository = Repository.all
-    @repositories = Repository.all.paginate ({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
+    @repositories = Repository.all.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @repositories }
