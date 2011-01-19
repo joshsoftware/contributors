@@ -101,5 +101,5 @@ DEPENDENCIES
   multi_json
   mysql2
   rails (= 3.0.3)
-  will_paginate
   rspec-rails (>= 2.0.0.beta)
+  will_paginate
