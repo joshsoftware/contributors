@@ -1,21 +1,56 @@
 <h1>Listing git_logs</h1>
 
+  <br>
+  <div>
+    <h3>Select Repository</h3>
+    <form action="repositories/create_timesheet" method="post">
+    <select name="repository" id="repository">
+    </select>
+
+    <h3>Select Authors</h3>
+    <select name="author" id="author">
+    </select>
+  </div>
+
+  <br>	
+  <script language="javascript" type="text/javascript" src="/javascripts/datetimepicker.js">
+  </script>
+
+  <div>   
+    <input type="Text" name="from" id="from" maxlength="25" size="25">
+    <a href="javascript:NewCal('demo1','ddmmmyyyy',true,24)">
+      <img src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>
+    <span class="descriptions">Start date</span>
+  </div>
+  <br>	
+
+  <div>	
+    <input type="Text" name="to" id="to" maxlength="25" size="25">
+    <a href="javascript:NewCal('demo2','ddmmmyyyy',true,24)">
+      <img src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>
+    <span class="descriptions">End date</span>
+  </div>
+
+    <p><input type="submit" name="submit" class="formbutton" value="Generate Timesheet" /></p>
+    </form>
+
 <table>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Commit Id</th>
+    <th>Author</th>
+    <th>Repository</th>
+    <th>Comment</th>
+    <th>Commit Date</th>
   </tr>
 
-<% @git_logs.each do |git_log| %>
-  <tr>
-    <td><%= link_to 'Show', git_log %></td>
-    <td><%= link_to 'Edit', edit_git_log_path(git_log) %></td>
-    <td><%= link_to 'Destroy', git_log, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+  <% @git_logs.each do |git_log| %>
+    <tr>	
+    <td><%= git_log.sha %><td>
+    <td><%= git_log.author.name %><td>
+    <td><%= git_log.repository.name %><td>
+    <td><%= git_log.comment %><td>
+    <td><%= git_log.committed_at %><td>
+    </tr>
+  <% end %>
 </table>
-
 <br />
-
-<%= link_to 'New Git log', new_git_log_path %>
