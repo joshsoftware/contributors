@@ -58,6 +58,7 @@ class RepositoriesController < ApplicationController
   def create
     if Repository.find_by_url(params['repository']['url']) == nil
       @repo = Repository.new(params['repository'])
+
     else
       flash[:notice] = "Repository Present"
       @repo = Repository.find_by_url(params['repository']['url'])
