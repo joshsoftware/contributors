@@ -2,9 +2,11 @@ class GitLogsController < ApplicationController
   # GET /git_logs
   # GET /git_logs.xml
   before_filter :init
+
   def init
     @selected = 'logs'
   end
+  
   def index
  #   @git_logs = GitLog.all
     @repositories = Repository.all

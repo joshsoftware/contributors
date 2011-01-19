@@ -1,10 +1,14 @@
 class AuthorRepositoriesController < ApplicationController
 #  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy]
 #  before_filter :is_owner, :only => [:edit, :update, :destroy]
-
-  
   # GET /author_repositories
   # GET /author_repositories.xml
+
+  before_filter :init
+  def init
+    @selected = 'authors'
+  end
+  
   def index
     @author_repositories = AuthorRepository.all
 

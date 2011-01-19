@@ -1,11 +1,13 @@
 class RepositoriesController < ApplicationController
   # GET /repositories
   # GET /repositories.xml
+  
   before_filter :init
   def init
     @selected = 'repository'
   end
-  def index
+
+  def index 
     @repository = Repository.all
     @repositories = Repository.all.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     respond_to do |format|
@@ -42,28 +44,31 @@ class RepositoriesController < ApplicationController
   def create_timesheet
     # get repository (mandatory): params[:repository]
     @repository = Repository.find(params[:repository])
+    to = params[:to] || Time.now
+
     @author_list = Author.all  
-    
-    to =  params[:to].blank? ? Time.now : params[:to] 
     # params:(OPTIONAL)	:to, :from :author  
- 
     @logs = @repository.git_logs.to(to)
-    @logs = @logs.by_author(paramsi[:author]) if params[:author].blank?
-    @logs = @logs.from(params[:from]) if !params[:from].blank?
-    render "git_logs/index" 
+    @logs = @logs.by_author(params[:author]) if params[:author]
+    @logs = @logs.from(params[:from]) if params[:form]
   end
 
 
   # user defined method th parse, verify the git url and populate the repository
   def create
-    @repo = Repository.new(params['repository'])
+    if Repository.find_by_url(params['repository']['url']) == nil
+      @repo = Repository.new(params['repository'])
+    else
+      flash[:notice] = "Repository Present"
+      @repo = Repository.find_by_url(params['repository']['url'])
+    end
+
     repo_name = /^\w*[@|:][\/\/]*github.com[:?\/]*(([\w]+)\/([\w\-\.]+)).git$/.match(params['repository']['url']).captures
     @repo.name = repo_name.first if @repo.name.blank?
     str = "http://github.com/api/v2/json/commits/list/" + repo_name.first  + "/master"
     url = URI.parse(str)
     res = Net::HTTP.get_response(url)
     if res.class == Net::HTTPOK
-      #@repository.save
       @repo.user = current_user
       @repo.save
       @author_repository = AuthorRepository.new
