@@ -37,19 +37,21 @@
 
 <table>
   <tr>
-    <th>Authors</th>
+    <th>Commit Id</th>
+    <th>Author</th>
     <th>Repository</th>
     <th>Comment</th>
-    <th>Date</th>
+    <th>Commit Date</th>
   </tr>
 
   <% @git_logs.each do |git_log| %>
-    <tr>
-      <td><%= link_to 'Show', git_log %></td>
-      <td><%= link_to 'Edit', edit_git_log_path(git_log) %></td>
-      <td><%= link_to 'Destroy', git_log, :confirm => 'Are you sure?', :method => :delete %></td>
+    <tr>	
+    <td><%= git_log.sha %><td>
+    <td><%= git_log.author.name %><td>
+    <td><%= git_log.repository.name %><td>
+    <td><%= git_log.comment %><td>
+    <td><%= git_log.committed_at %><td>
     </tr>
   <% end %>
 </table>
 <br />
-<%= link_to 'New Git log', new_git_log_path %>
