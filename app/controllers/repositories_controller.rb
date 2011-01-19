@@ -1,9 +1,13 @@
 class RepositoriesController < ApplicationController
   # GET /repositories
   # GET /repositories.xml
+  before_filter :init
+  def init
+    @selected = 'repository'
+  end
   def index
     @repository = Repository.all
-    @repositories = Repository.all.paginate ({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
+    @repositories = Repository.all.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @repositories }
@@ -14,7 +18,7 @@ class RepositoriesController < ApplicationController
   # GET /repositories/new.xml
   def new
     @repository = Repository.new
-
+    @selected = 'repo_new'
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @repository }
@@ -38,13 +42,15 @@ class RepositoriesController < ApplicationController
   def create_timesheet
     # get repository (mandatory): params[:repository]
     @repository = Repository.find(params[:repository])
-    to = params[:to] || Time.now
-
     @author_list = Author.all  
+    
+    to =  params[:to].blank? ? Time.now : params[:to] 
     # params:(OPTIONAL)	:to, :from :author  
+ 
     @logs = @repository.git_logs.to(to)
-    @logs = @logs.by_author(params[:author]) if params[:author]
-    @logs = @logs.from(params[:from]) if params[:form]
+    @logs = @logs.by_author(paramsi[:author]) if params[:author].blank?
+    @logs = @logs.from(params[:from]) if !params[:from].blank?
+    render "git_logs/index" 
   end
 
 

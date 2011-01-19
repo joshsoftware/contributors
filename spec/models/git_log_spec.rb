@@ -4,79 +4,92 @@ describe "Gitlog" do
 
   context "should be created if" do
 
-    it "Sha is not blank" do
-    end
+    it "Sha is not blank" 
 
-    it "Author is not blank" do
-    end
+    it "Author is not blank" 
 
-    it "Repository is not blank" do
-    end
+    it "Repository is not blank" 
 
-    it "Date is not blank" do
-    end
+    it "Date is not blank" 
 
-    it "Author is exist in Author table" do
-    end
+    it "Author is exist in Author table" 
 
-    it "Repository is exist in Repository table" do
-    end
+    it "Repository is exist in Repository table" 
 
-    it "Date is valid" do
-    end
+    it "Date is valid" 
 
-    it "Sha is unique" do
-    end
+    it "Sha is unique" 
   end
 
 
   context "should not be created if" do
 
-    it "Sha is blank" do
-    end
+    it "Sha is blank" 
 
-    it "Author is blank" do
-    end
+    it "Author is blank" 
 
-    it "Repository is blank" do
-    end
+    it "Repository is blank" 
 
-    it "Date is blank" do
-    end
+    it "Date is blank" 
 
-    it "Author does not exist in Author table" do
-    end
+    it "Author does not exist in Author table" 
 
-    it "Repository does not exist in Repository table" do
-    end
+    it "Repository does not exist in Repository table" 
 
-    it "Date is not valid" do
-    end
+    it "Date is not valid" 
 
-    it "Sha is already exist" do
-    end
+    it "Sha is already exist" 
   end
 
 
-  #describe "Create Gitlog" do
-  # it "Pair of author and repository should exist in AuthorRepository table" do
-  #end
-  #end
+  context "if author is G then user should see" do 
 
-  context "should be display all entries if" do 
+    it "2 entries if :from, :to, :repostiory, is empty" 
 
-    it "User ask" do 
-    end
+    it "1 entry if :from is SELECTED and :to is empty and :repository is empty" 
+
+    it "b no. of entries if :from is empty, :to is SELECTED and :repository is empty " 
+
+    it "c no. of entries if :from is empty, :to is empty and :repository is SELECTED" 
+
+    it "d no. of entries if :from is SELECTED, :to is SELECTED and :repository is empty" 
+
+    it "e no. of entries if :from is SELECTED, :to is empty and :repository is SELECTED" 
+
+    it "f no. of entries if :from is empty, :to is SELECTED and :repository is SELECTED" 
+
+    it "g no. of entries if :from is SELECTED, :to is SELECTED and :repository is SELECTED" 
 
   end
 
-  context "should not be display all entries if"  do
+  context "if repository is R2 then user should see" do
 
-    it "User is not logged in" do
-    end
+    it "2 entries if :from, :to, :author, is empty" 
+
+    it "1 entry if :from is SELECTED and :to is empty and :author is empty" 
+
+    it "b no. of entries if :from is empty, :to is SELECTED and :author is empty "  
+
+    it "c no. of entries if :from is empty, :to is empty and :author is SELECTED" 
+
+    it "d no. of entries if :from is SELECTED, :to is SELECTED and :author is empty" 
+
+    it "e no. of entries if :from is SELECTED, :to is empty and :author is SELECTED" 
+
+    it "f no. of entries if :from is empty, :to is SELECTED and :author is SELECTED" 
+
+    it "g no. of entries if :from is SELECTED, :to is SELECTED and :author is SELECTED" 
 
   end
-  #describe "Edit ro destroy Gitlog" do
+
+
+  context "should not be display any entry if"  do
+
+    it "User is not logged in" 
+
+  end
+
+  #describe "Edit or destroy Gitlog" do
   # it "User can not edit or destroy anythng from GitLog directly" do
   #end
   #end
@@ -84,8 +97,13 @@ describe "Gitlog" do
 
   context "should be destroy if" do
 
-    it "perticular repository get destroy from Repository table" do
-    end
+    it "perticular repository get destroy from Repository table" 
+
+  end
+
+  context "should not get destroy if" do
+
+    it "it has entry in that repository" 
 
   end
 

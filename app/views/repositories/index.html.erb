@@ -10,8 +10,9 @@
 <%= will_paginate %>
 <% @repositories.each do |repository| %>
   <tr>
-GitHub Repository Url:
+    <td><%= link_to "#{repository.name}", repository_timesheet_path(repository)%></td>
     <td><%= repository.url %></td>
+    <td><%= repository.user.name %></td>	
   </tr>
 <% end %>
 </table>

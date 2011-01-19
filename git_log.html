@@ -187,68 +187,110 @@ a {
 <div class="example_group">
   <dl style="margin-left: 15px;">
   <dt id="example_group_2">should be created if</dt>
-    <script type="text/javascript">moveProgressBar('5.2');</script>
+    <script type="text/javascript">moveProgressBar('2.8');</script>
     <dd class="spec passed"><span class="passed_spec_name">Sha is not blank</span></dd>
-    <script type="text/javascript">moveProgressBar('10.5');</script>
+    <script type="text/javascript">moveProgressBar('5.7');</script>
     <dd class="spec passed"><span class="passed_spec_name">Author is not blank</span></dd>
-    <script type="text/javascript">moveProgressBar('15.7');</script>
+    <script type="text/javascript">moveProgressBar('8.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">Repository is not blank</span></dd>
-    <script type="text/javascript">moveProgressBar('21.0');</script>
+    <script type="text/javascript">moveProgressBar('11.4');</script>
     <dd class="spec passed"><span class="passed_spec_name">Date is not blank</span></dd>
-    <script type="text/javascript">moveProgressBar('26.3');</script>
+    <script type="text/javascript">moveProgressBar('14.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">Author is exist in Author table</span></dd>
-    <script type="text/javascript">moveProgressBar('31.5');</script>
+    <script type="text/javascript">moveProgressBar('17.1');</script>
     <dd class="spec passed"><span class="passed_spec_name">Repository is exist in Repository table</span></dd>
-    <script type="text/javascript">moveProgressBar('36.8');</script>
+    <script type="text/javascript">moveProgressBar('20.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">Date is valid</span></dd>
-    <script type="text/javascript">moveProgressBar('42.1');</script>
+    <script type="text/javascript">moveProgressBar('22.8');</script>
     <dd class="spec passed"><span class="passed_spec_name">Sha is unique</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl style="margin-left: 15px;">
   <dt id="example_group_3">should not be created if</dt>
-    <script type="text/javascript">moveProgressBar('47.3');</script>
+    <script type="text/javascript">moveProgressBar('25.7');</script>
     <dd class="spec passed"><span class="passed_spec_name">Sha is blank</span></dd>
-    <script type="text/javascript">moveProgressBar('52.6');</script>
+    <script type="text/javascript">moveProgressBar('28.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">Author is blank</span></dd>
-    <script type="text/javascript">moveProgressBar('57.8');</script>
+    <script type="text/javascript">moveProgressBar('31.4');</script>
     <dd class="spec passed"><span class="passed_spec_name">Repository is blank</span></dd>
-    <script type="text/javascript">moveProgressBar('63.1');</script>
+    <script type="text/javascript">moveProgressBar('34.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">Date is blank</span></dd>
-    <script type="text/javascript">moveProgressBar('68.4');</script>
+    <script type="text/javascript">moveProgressBar('37.1');</script>
     <dd class="spec passed"><span class="passed_spec_name">Author does not exist in Author table</span></dd>
-    <script type="text/javascript">moveProgressBar('73.6');</script>
+    <script type="text/javascript">moveProgressBar('40.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">Repository does not exist in Repository table</span></dd>
-    <script type="text/javascript">moveProgressBar('78.9');</script>
+    <script type="text/javascript">moveProgressBar('42.8');</script>
     <dd class="spec passed"><span class="passed_spec_name">Date is not valid</span></dd>
-    <script type="text/javascript">moveProgressBar('84.2');</script>
+    <script type="text/javascript">moveProgressBar('45.7');</script>
     <dd class="spec passed"><span class="passed_spec_name">Sha is already exist</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_4">should be display all entries if</dt>
-    <script type="text/javascript">moveProgressBar('89.4');</script>
-    <dd class="spec passed"><span class="passed_spec_name">User ask</span></dd>
+  <dt id="example_group_4">if author is G then user should see</dt>
+    <script type="text/javascript">moveProgressBar('48.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">2 entries if :from, :to, :repostiory, is empty</span></dd>
+    <script type="text/javascript">moveProgressBar('51.4');</script>
+    <dd class="spec passed"><span class="passed_spec_name">1 entry if :from is SELECTED and :to is empty and :repository is empty</span></dd>
+    <script type="text/javascript">moveProgressBar('54.2');</script>
+    <dd class="spec passed"><span class="passed_spec_name">b no. of entries if :from is empty, :to is SELECTED and :repository is empty </span></dd>
+    <script type="text/javascript">moveProgressBar('57.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">c no. of entries if :from is empty, :to is empty and :repository is SELECTED</span></dd>
+    <script type="text/javascript">moveProgressBar('60.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">d no. of entries if :from is SELECTED, :to is SELECTED and :repository is empty</span></dd>
+    <script type="text/javascript">moveProgressBar('62.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">e no. of entries if :from is SELECTED, :to is empty and :repository is SELECTED</span></dd>
+    <script type="text/javascript">moveProgressBar('65.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">f no. of entries if :from is empty, :to is SELECTED and :repository is SELECTED</span></dd>
+    <script type="text/javascript">moveProgressBar('68.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">g no. of entries if :from is SELECTED, :to is SELECTED and :repository is SELECTED</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_5">should not be display all entries if</dt>
-    <script type="text/javascript">moveProgressBar('94.7');</script>
+  <dt id="example_group_5">if repository is R2 then user should see</dt>
+    <script type="text/javascript">moveProgressBar('71.4');</script>
+    <dd class="spec passed"><span class="passed_spec_name">2 entries if :from, :to, :author, is empty</span></dd>
+    <script type="text/javascript">moveProgressBar('74.2');</script>
+    <dd class="spec passed"><span class="passed_spec_name">1 entry if :from is SELECTED and :to is empty and :author is empty</span></dd>
+    <script type="text/javascript">moveProgressBar('77.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">b no. of entries if :from is empty, :to is SELECTED and :author is empty </span></dd>
+    <script type="text/javascript">moveProgressBar('80.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">c no. of entries if :from is empty, :to is empty and :author is SELECTED</span></dd>
+    <script type="text/javascript">moveProgressBar('82.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">d no. of entries if :from is SELECTED, :to is SELECTED and :author is empty</span></dd>
+    <script type="text/javascript">moveProgressBar('85.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">e no. of entries if :from is SELECTED, :to is empty and :author is SELECTED</span></dd>
+    <script type="text/javascript">moveProgressBar('88.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">f no. of entries if :from is empty, :to is SELECTED and :author is SELECTED</span></dd>
+    <script type="text/javascript">moveProgressBar('91.4');</script>
+    <dd class="spec passed"><span class="passed_spec_name">g no. of entries if :from is SELECTED, :to is SELECTED and :author is SELECTED</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_6">should not be display any entry if</dt>
+    <script type="text/javascript">moveProgressBar('94.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">User is not logged in</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_6">should be destroy if</dt>
-    <script type="text/javascript">moveProgressBar('100.0');</script>
+  <dt id="example_group_7">should be destroy if</dt>
+    <script type="text/javascript">moveProgressBar('97.1');</script>
     <dd class="spec passed"><span class="passed_spec_name">perticular repository get destroy from Repository table</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.020795 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "19 examples, 0 failures";</script>
+<div class="example_group">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_8">should not get destroy if</dt>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">it has entry in that repository</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.031328 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "35 examples, 0 failures";</script>
 </div>
 </div>
 </body>

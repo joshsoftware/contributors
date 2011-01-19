@@ -13,6 +13,7 @@
             <h4 align="right"> <%= "Welcome " + current_user.name.to_s.capitalize+ "!" if user_signed_in? %> <a href = "/users/sign_out" class = "">Sign Out</a></h4>
             <h1>TimeSheet</h1>
             <h2>Ruby on Rails</h2>
+	    <h2 align="right">User :<input type="Text" name="user" id="user" maxlength="25" size="25"></h2>
           </div>
         </div>
       </div>
@@ -23,22 +24,18 @@
           <%= yield %>
 
         </div>
-	<%# author = 'selected' if (current_page?(:controller => 'authors'))%>    
-        <%# repo = 'selected' if (current_page?(:controller => 'repositories'))%>
-        <%# newRepo = 'selected' if (current_page?(:controller => 'repositories', :action => 'new'))%>
-        <%# logs= 'selected' if (current_page?(:controller => 'git_logs'))%>
         <div id="sidebar">
           <ul>	
-            <li><a href = "/authors" class = "">Authors</a></li>
-            <li><a href = "/repositories" class = "" >Repositores</a></li>
-            <li><a href = "/repositories/new" class = "">Add New Repository</a></li>
-            <li><a href = "/git_logs" class = "">Generate Time Sheet</a></li>
+            <li><a href="/authors" <%= 'class=selected' if @selected == 'authors' %>>Authors</a></li>
+            <li><a href="/repositories" <%= 'class=selected' if @selected == 'repository' %> >Repository</a></li>
+            <li><a href="/repositories/new" <%= 'class=selected' if not @selected or @selected == 'repo_new' %> >Add New Repository</a></li>
+            <li><a href="/git_logs" <%= 'class=selected' if @selected == 'logs' %> >Generate Time Sheet</a></li>
           </ul>
         </div>
         <div class = "clear"></div>
       </div>
-      <div id = "footer">
-        <p>Project done at JOSH Softwares</p>
+      <div id="footer">
+        <p>Copyright @ JOSH Software Pvt. Ltd.</p>
       </div>
     </div>
 
