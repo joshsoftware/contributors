@@ -92,12 +92,12 @@ class RepositoriesController < ApplicationController
     @repository = Repository.find(params[:repository])
     @author_list = Author.all  
     
-    to =  params[:to].empty? ? Time.now : params[:to] 
+    to =  params[:to].blank? ? Time.now : params[:to] 
     # params:(OPTIONAL)	:to, :from :author  
  
     @logs = @repository.git_logs.to(to)
-    @logs = @logs.by_author(paramsi[:author]) if params[:author]
-    @logs = @logs.from(params[:from]) if !params[:from].empty?
+    @logs = @logs.by_author(paramsi[:author]) if params[:author].blank?
+    @logs = @logs.from(params[:from]) if !params[:from].blank?
     render "git_logs/index" 
   end
 

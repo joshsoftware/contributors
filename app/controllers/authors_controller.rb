@@ -88,13 +88,13 @@ class AuthorsController < ApplicationController
  def create_timesheet
    #mandatory parameter params[:author]
    @author = Author.find(params[:author]) 
-   to =  params[:to].empty? ? Time.now : params[:to]     
+   to =  params[:to].blank? ? Time.now : params[:to]     
    @repository_list = Repository.all
  
    #optional paramaeters :from, :to, :repository
    @logs = @author.git_logs.to(to)
-   @logs = @logs.by_repository(params[:repository]) if params[:repository]
-   @logs = @logs.from(params[:from]) if !params[:from].empty?
+   @logs = @logs.by_repository(params[:repository]) if params[:repository].blank?
+   @logs = @logs.from(params[:from]) if !params[:from].blank?
    render "git_logs/index"
  end
 
