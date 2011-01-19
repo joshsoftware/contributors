@@ -1,6 +1,10 @@
 class RepositoriesController < ApplicationController
   # GET /repositories
   # GET /repositories.xml
+  before_filter :init
+  def init
+    @selected = 'repository'
+  end
   def index
     @repository = Repository.all
     @repositories = Repository.all.paginate ({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
@@ -25,7 +29,7 @@ class RepositoriesController < ApplicationController
   # GET /repositories/new.xml
   def new
     @repository = Repository.new
-
+    @selected = 'repo_new'
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @repository }

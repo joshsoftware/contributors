@@ -1,9 +1,13 @@
 class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.xml
+  before_filter :init
+  def init
+    @selected = 'authors'
+  end
   def index
-    @authors = Author.all 
-    @authors = Author.all.paginate ({:page => params[:page], :per_page => 5})
+    @authors = Author.all
+    @authors = Author.all.paginate ({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @authors }
@@ -25,7 +29,6 @@ class AuthorsController < ApplicationController
   # GET /authors/new.xml
   def new
     @author = Author.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @author }
