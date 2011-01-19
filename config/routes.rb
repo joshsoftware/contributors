@@ -15,6 +15,8 @@ Timesheet::Application.routes.draw do
 
   match 'home/index' => 'home#index', :as => 'home_index'
   match 'repositories/populate' => 'repositories#populate'
+  match 'authors/create_timesheet' => 'authors#create_timesheet'
+  match 'repositories/create_timesheet' => 'repositories#create_timesheet'
   
 #  match 'users/mainpage' => 'users#mainpage', :as => 'user_mainpage'
 

@@ -22,16 +22,16 @@
           <%= yield %>
 
         </div>
-	<% author = 'selected' if (current_page?(:controller => 'authors'))%>    
-        <% repo = 'selected' if (current_page?(:controller => 'repositories'))%>
-        <% newRepo = 'selected' if (current_page?(:controller => 'repositories', :action => 'new'))%>
-        <% logs= 'selected' if (current_page?(:controller => 'git_logs'))%>
+	<%# author = 'selected' if (current_page?(:controller => 'authors'))%>    
+        <%# repo = 'selected' if (current_page?(:controller => 'repositories'))%>
+        <%# newRepo = 'selected' if (current_page?(:controller => 'repositories', :action => 'new'))%>
+        <%# logs= 'selected' if (current_page?(:controller => 'git_logs'))%>
         <div id="sidebar">
           <ul>	
-            <li><a href="/authors" class="<%= author %>">Authors</a></li>
-            <li><a href="/repositories" class="<%= repo %>" >Repository</a></li>
-            <li><a href="/repositories/new" class="<%= newRepo %>">Add New Repository</a></li>
-            <li><a href="/git_logs" class="<%= logs %>">Generate Time Sheet</a></li>
+            <li><a href="/authors" class="">Authors</a></li>
+            <li><a href="/repositories" class="" >Repository</a></li>
+            <li><a href="/repositories/new" class="">Add New Repository</a></li>
+            <li><a href="/git_logs" class="">Generate Time Sheet</a></li>
           </ul>
         </div>
         <div class="clear"></div>

@@ -86,14 +86,15 @@ class RepositoriesController < ApplicationController
   def create_timesheet
     # get repository (mandatory): params[:repository]
     @repository = Repository.find(params[:repository])
-    to = params[:to] || Time.now
-   
     @author_list = Author.all  
+    
+    to =  params[:to].empty? ? Time.now : params[:to] 
     # params:(OPTIONAL)	:to, :from :author  
+ 
     @logs = @repository.git_logs.to(to)
-    @logs = @logs.by_author(params[:author]) if params[:author]
-    @logs = @logs.from(params[:from]) if params[:form]
-  
+    @logs = @logs.by_author(paramsi[:author]) if params[:author]
+    @logs = @logs.from(params[:from]) if !params[:from].empty?
+    render "git_logs/index" 
   end
 
   # user defined method th parse, verify the git url and populate the repository
