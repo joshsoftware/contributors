@@ -88,8 +88,8 @@ class RepositoriesController < ApplicationController
         end
         @git_log.author = @author_repository.author = @author
         @git_log.repository = @author_repository.repository = @repo
-        @git_log.save
         @author_repository.save
+        @git_log.save
       end
       flash[:notice] = "Successfully Created"
     elsif res.class == Net::HTTPNotFound
