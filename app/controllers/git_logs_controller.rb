@@ -5,6 +5,7 @@ class GitLogsController < ApplicationController
   def init
     @selected = 'logs'
   end
+
   def index
  #   @git_logs = GitLog.all
     @repositories = Repository.all
@@ -85,4 +86,23 @@ class GitLogsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+
+
+def create_timesheet
+    # get repository (mandatory): params[:repository]
+    @repository = Repository.find(params[:repository])
+    @author = Author.find(params[:author])
+    @authors = Author.all    
+    @repositories = Repository.all
+
+    to =  params[:to].blank? ? Time.now.strftime("%Y-%m-%d %H:%M:%S") : params[:to]
+
+    @logs = GitLog.to(to).by_repository(@repository)
+    @logs = @logs.by_author(@author) 
+    
+    @logs = @logs.from(params[:from]) if !params[:from].blank?
+    render "git_logs/index"
+  end
+
 end

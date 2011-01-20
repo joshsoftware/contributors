@@ -27,7 +27,7 @@
         <div id="sidebar">
           <ul>	
             <li><a href="/authors" <%= 'class=selected' if @selected == 'authors' %>>Authors</a></li>
-            <li><a href="/repositories" <%= 'class=selected' if @selected == 'repository' %> >Repository</a></li>
+            <li><a href="/repositories" <%= 'class=selected' if @selected == 'repositories' %> >Repository</a></li>
             <li><a href="/repositories/new" <%= 'class=selected' if not @selected or @selected == 'repo_new' %> >Add New Repository</a></li>
             <li><a href="/git_logs" <%= 'class=selected' if @selected == 'logs' %> >Generate Time Sheet</a></li>
           </ul>

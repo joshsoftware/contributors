@@ -42,13 +42,12 @@ class RepositoriesController < ApplicationController
   def create_timesheet
     # get repository (mandatory): params[:repository]
     @repository = Repository.find(params[:repository])
-    @author_list = Author.all  
+    @authors = @repository.authors 
     
-    to =  params[:to].blank? ? Time.now : params[:to] 
-    # params:(OPTIONAL)	:to, :from :author  
- 
-    @logs = @repository.git_logs.to(to)
-    @logs = @logs.by_author(paramsi[:author]) if params[:author].blank?
+    to =  params[:to].blank? ? Time.now.strftime("%Y-%m-%d %H:%M:%S") : params[:to] 
+
+    @logs = GitLog.to(to).by_repository(@repository)
+    @logs = @logs.by_author(params[:author]) if !params[:author].blank?
     @logs = @logs.from(params[:from]) if !params[:from].blank?
     render "git_logs/index" 
   end
@@ -63,7 +62,6 @@ class RepositoriesController < ApplicationController
     url = URI.parse(str)
     res = Net::HTTP.get_response(url)
     if res.class == Net::HTTPOK
-      @repository.save
       @repo.user = current_user
       @repo.save
       @author_repository = AuthorRepository.new
@@ -73,8 +71,9 @@ class RepositoriesController < ApplicationController
         @git_log.sha = commit['id']
         @git_log.comment = commit['message']
         @git_log.committed_at = commit['committed_date']
+
         @author = Author.find_by_name(commit['author']['name']) 
-        if @author == nil 
+        if (@author == nil or @author.blank? ) 
           @author = Author.new
           @author.name = commit['author']['name']
           @author.email = commit['author']['email']

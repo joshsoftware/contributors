@@ -2,9 +2,16 @@
 
 <br>
 <div>
+   
+   <% action = "/git_logs_timesheet" %>
+   <% if @repositories and @author and !@repository %>
+     <% action = "/authors_timesheet/#{@author.id}" %> 
+   <% elsif @repository %>
+    <% action += "/repositories_timesheet/#{@repository.id}" %>
+   <% end %>
+    <form action="<%= action %>" method="post">
   <% if !@repositories.blank? %>
     <h3>Select Repository</h3>
-    <form action="repositories/create_timesheet" method="post">
       <%= select_tag "repository", options_from_collection_for_select(@repositories, "id", "name") %> 
     </select>
   <% end %>
@@ -38,21 +45,21 @@
     </form>
 
     <table>
-      <% if @git_logs %>
-        <tr>
-          <th>Author</th>
-          <th>Repository</th>
-          <th>Comment</th>
-          <th>Commit Date</th>
-        </tr>
-        <% @git_logs.each do |git_log| %>
-          <tr>	
-            <td><%= git_log.author.name %><td>
-                <td><%= git_log.repository.name %><td>
-                    <td><%= git_log.comment %><td>
-                        <td><%= git_log.committed_at %><td>
-                          </tr>
-                        <% end %>
-                      <% end %>
-                    </table>
-                    <br />
+    <% if !@logs.blank? %>
+      <tr>
+        <th>Author</th>
+        <th>Repository</th>
+        <th>Comment</th>
+        <th>Commit Date</th>
+      </tr>
+      <% @logs.each do |git_log| %>
+      <tr>	
+       <td><%= git_log.author.name %><td>
+       <td><%= git_log.repository.name %><td>
+       <td><%= git_log.comment %><td>
+       <td><%= git_log.committed_at %><td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+  <br />
