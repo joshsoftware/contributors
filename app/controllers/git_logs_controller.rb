@@ -9,7 +9,7 @@ class GitLogsController < ApplicationController
   def index
  #   @git_logs = GitLog.all
     @repositories = Repository.all
-    @authors = Author.all
+    @authors = Author.all    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @git_logs }
@@ -102,6 +102,7 @@ def create_timesheet
     @logs = @logs.by_author(@author) 
     
     @logs = @logs.from(params[:from]) if !params[:from].blank?
+    @git_logs = @logs.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     render "git_logs/index"
   end
 

@@ -42,22 +42,25 @@
 <p><input type="submit" name="submit" class="formbutton" value="Generate Timesheet" /></p>
     </form>
 
-    <table>
-    <% if !@logs.blank? %>
+    <%= will_paginate @git_logs, :remote => {:update => "logs"}%>
+<div id="logs">    
+<table>
+    <% if !@git_logs.blank? %>
       <tr>
         <th>Author</th>
         <th>Repository</th>
         <th>Comment</th>
         <th>Commit Date</th>
       </tr>
-      <% @logs.each do |git_log| %>
+      <% @git_logs.each do |git_log| %>
       <tr>	
-       <td><%= git_log.author.name %><td>
-       <td><%= git_log.repository.name %><td>
-       <td><%= git_log.comment %><td>
-       <td><%= git_log.committed_at %><td>
+       <td><%= git_log.author.name %></td>
+       <td><%= git_log.repository.name %></td>
+       <td><%= git_log.comment %></td>
+       <td><%= git_log.committed_at %></td>
       </tr>
     <% end %>
   <% end %>
   </table>
+</div>
   <br />
