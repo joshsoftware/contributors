@@ -16,6 +16,8 @@ class AuthorsController < ApplicationController
     end
   end
 
+# user need not display author specific data
+=begin
   # GET /authors/1
   # GET /authors/1.xml
   def show
@@ -26,22 +28,29 @@ class AuthorsController < ApplicationController
       format.xml  { render :xml => @author }
     end
   end
+=end
+# user cannot create author 
 
   # GET /authors/new
   # GET /authors/new.xml
+  # redirected to index
   def new
-    @author = Author.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @author }
-    end
+    #@author = Author.new
+    #respond_to do |format|
+    #  format.html # new.html.erb
+    #  format.xml  { render :xml => @author }
+    #end
+    redirect_to :action => "index"
   end
 
+=begin
+
+#do not need to edit author
   # GET /authors/1/edit
   def edit
     @author = Author.find(params[:id])
   end
-
+=end
   # POST /authors
   # POST /authors.xml
   def create
