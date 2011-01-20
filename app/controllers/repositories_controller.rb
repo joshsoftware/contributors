@@ -10,6 +10,7 @@ class RepositoriesController < ApplicationController
   def index 
     @repository = Repository.all
     @repositories = Repository.all.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @repositories }
@@ -56,6 +57,7 @@ class RepositoriesController < ApplicationController
        @logs = @logs.fromdate(fromdate) 
     end 
 
+    @git_logs = @logs.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     render "git_logs/index" 
   end
 

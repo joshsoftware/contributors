@@ -10,6 +10,7 @@ class AuthorsController < ApplicationController
   def index
     @authors = Author.all
     @authors = Author.all.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @authors }
@@ -112,6 +113,7 @@ class AuthorsController < ApplicationController
      @logs = @logs.fromdate(fromdate)
    end  
    
+   @git_logs = @logs.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
    render "git_logs/index"
  end
 
