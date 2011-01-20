@@ -4,12 +4,13 @@ class RepositoriesController < ApplicationController
 
   before_filter :init
   def init
-    @selected = 'repository'
+    @selected = 'repositories'
   end
 
   def index 
     @repository = Repository.all
     @repositories = Repository.all.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @repositories }
@@ -51,6 +52,7 @@ class RepositoriesController < ApplicationController
     @logs = GitLog.to(to).by_repository(@repository)
     @logs = @logs.by_author(params[:author]) if !params[:author].blank?
     @logs = @logs.from(params[:from]) if !params[:from].blank?
+    @git_logs = @logs.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     render "git_logs/index" 
   end
 
