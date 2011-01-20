@@ -13,8 +13,6 @@ Timesheet::Application.routes.draw do
 
   resources :authors
 
-  match '/authors_timesheet/:author' => 'authors#create_timesheet', :as => 'author_timesheet'
-  match '/repositories_timesheet/:repository' => 'repositories#create_timesheet', :as => 'repository_timesheet'
 
 #  match '/authors_timesheet' => 'authors#create_timesheet'
 #  match '/repositories_timesheet' => 'repositories#create_timesheet'
@@ -23,6 +21,9 @@ Timesheet::Application.routes.draw do
 #   match 'repositories_timesheet/authors/create_timesheet' => 'authors#create_timesheet' 
 #   match 'authors_timesheet/repositories/create_timesheet' => 'repositories#create_timesheet'
 
+  match 'authors/:author/timesheet' => 'authors#create_timesheet', :as => 'author_timesheet'
+  match 'repositories/:repository/timesheet' => 'repositories#create_timesheet', :as => 'repository_timesheet'
+  
 #  match 'users/mainpage' => 'users#mainpage', :as => 'user_mainpage'
 
 

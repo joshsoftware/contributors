@@ -1,10 +1,12 @@
 require 'spec_helper'
-
+puts author = Factory.create(:author).name
 describe "Authors" do
 
   context "should display all authors if" do
 
-    it "user has LOGGED IN" 
+    it "user has LOGGED IN" do 
+      user_signed_in?.should_not = nil
+    end
 
   end
 

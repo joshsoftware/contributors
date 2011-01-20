@@ -2,7 +2,7 @@ class GitLog < ActiveRecord::Base
   belongs_to :author
   belongs_to :repository
   validates_presence_of :sha, :repository
-  after_create :create_author_repository
+#  after_create :create_author_repository
 
   #scope for generating timesheet, called from author and repository controller
   scope :by_repository, lambda { |repository| { :conditions => ['repository_id = ?', repository] } }

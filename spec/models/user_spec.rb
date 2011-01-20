@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+ puts user = Factory.create(:user)
 describe "User" do
 
   context "should be created if" do 
