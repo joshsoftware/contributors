@@ -3,8 +3,8 @@
    <% action = "/git_logs_timesheet" %>
    <% if @repositories and @author and !@repository %>
      <% action = "/authors_timesheet/#{@author.id}" %> 
-   <% elsif @repository %>
-    <% action += "/repositories_timesheet/#{@repository.id}" %>
+   <% elsif @repository and !@author %>
+    <% action = "/repositories_timesheet/#{@repository.id}" %>
    <% end %>
     <form action="<%= action %>" method="post">
   <% if !@repositories.blank? %>

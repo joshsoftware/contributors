@@ -10,10 +10,9 @@
       <div id = "header">
         <div id = "innerheader">
           <div id = "title">
-            <h4 align="right"> <%= "Welcome " + current_user.name.to_s.capitalize+ "!" if user_signed_in? %> <a href = "/users/sign_out" class = "">Sign Out</a></h4>
+            <h4 align="right"><%= "Welcome " + current_user.name.to_s.capitalize+ "!" if user_signed_in? %><a href = "/users/sign_out" class = "">Sign Out</a></h4>
             <h1>TimeSheet</h1>
             <h2>Ruby on Rails</h2>
-	    <h2 align="right">User :<input type="Text" name="user" id="user" maxlength="25" size="25"></h2>
           </div>
         </div>
       </div>

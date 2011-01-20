@@ -101,8 +101,12 @@ def create_timesheet
     @logs = GitLog.to(to).by_repository(@repository)
     @logs = @logs.by_author(@author) 
     
-    @logs = @logs.from(params[:from]) if !params[:from].blank?
-    render "git_logs/index"
+    if !params[:from].blank?
+      fromdate = params[:from].to_datetime.strftime("%Y-%m-%d %H:%M:%S") 
+      @logs = @logs.fromdate(fromdate) 
+    end  
+
+  render "git_logs/index"
   end
 
 end

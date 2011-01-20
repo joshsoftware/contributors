@@ -4,7 +4,7 @@ class RepositoriesController < ApplicationController
 
   before_filter :init
   def init
-    @selected = 'repository'
+    @selected = 'repositories'
   end
 
   def index 
@@ -50,7 +50,12 @@ class RepositoriesController < ApplicationController
 
     @logs = GitLog.to(to).by_repository(@repository)
     @logs = @logs.by_author(params[:author]) if !params[:author].blank?
-    @logs = @logs.from(params[:from]) if !params[:from].blank?
+    
+    if !params[:from].blank?
+       fromdate = params[:from].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
+       @logs = @logs.fromdate(fromdate) 
+    end 
+
     render "git_logs/index" 
   end
 
@@ -143,9 +148,9 @@ def create
           @repo.name = repo_name
           @repo.user = current_user 
           @repo.save
-          @author_repository = AuthorRepository.new
           commits = MultiJson.decode(res.body)
           commits['commits'].each do |commit|
+            @author_repository = AuthorRepository.new
             @git_log = GitLog.new
             @git_log.sha = commit['id']
             @git_log.comment = commit['message']
