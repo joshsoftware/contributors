@@ -4,7 +4,7 @@ class RepositoriesController < ApplicationController
 
   before_filter :init
   def init
-    @selected = 'repository'
+    @selected = 'repositories'
   end
 
   def index 
@@ -44,14 +44,13 @@ class RepositoriesController < ApplicationController
   def create_timesheet
     # get repository (mandatory): params[:repository]
     @repository = Repository.find(params[:repository])
-    @authors = @repository.authors 
-    
-    to =  params[:to].blank? ? Time.now.strftime("%Y-%m-%d %H:%M:%S") : params[:to] 
+    to = params[:to] || Time.now
 
-    @logs = GitLog.to(to).by_repository(@repository)
-    @logs = @logs.by_author(params[:author]) if !params[:author].blank?
-    @logs = @logs.from(params[:from]) if !params[:from].blank?
-    render "git_logs/index" 
+    @author_list = Author.all  
+    # params:(OPTIONAL)	:to, :from :author  
+    @logs = @repository.git_logs.to(to)
+    @logs = @logs.by_author(params[:author]) if params[:author]
+    @logs = @logs.from(params[:from]) if params[:form]
   end
 
 
@@ -84,14 +83,8 @@ def create
     str = "http://github.com/api/v2/json/commits/list/" + repo_name.first  + "/master"
     url = URI.parse(str)
     res = Net::HTTP.get_response(url)
-<<<<<<< HEAD
-    if res.class == Net::HTTPOK
-      @repo.user = current_user
-      @repo.save
-=======
     if res.class == Net::HTTPOK #the json url is valid if response is OK
       @repo.save  
->>>>>>> 8676cf6f612941429cb45e1969507dfeca5ccb9d
       @author_repository = AuthorRepository.new
       commits = MultiJson.decode(res.body)
       commits['commits'].each do |commit|
@@ -99,9 +92,8 @@ def create
         @git_log.sha = commit['id']
         @git_log.comment = commit['message']
         @git_log.committed_at = commit['committed_date']
-
         @author = Author.find_by_name(commit['author']['name']) 
-        if (@author == nil or @author.blank? ) 
+        if @author == nil 
           @author = Author.new
           @author.name = commit['author']['name']
           @author.email = commit['author']['email']
@@ -143,9 +135,9 @@ def create
           @repo.name = repo_name
           @repo.user = current_user 
           @repo.save
-          @author_repository = AuthorRepository.new
           commits = MultiJson.decode(res.body)
           commits['commits'].each do |commit|
+            @author_repository = AuthorRepository.new
             @git_log = GitLog.new
             @git_log.sha = commit['id']
             @git_log.comment = commit['message']
