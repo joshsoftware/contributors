@@ -49,7 +49,12 @@ class RepositoriesController < ApplicationController
 
     @logs = GitLog.to(to).by_repository(@repository)
     @logs = @logs.by_author(params[:author]) if !params[:author].blank?
-    @logs = @logs.from(params[:from]) if !params[:from].blank?
+    
+    if !params[:from].blank?
+       fromdate = params[:from].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
+       @logs = @logs.fromdate(fromdate) 
+    end 
+
     @git_logs = @logs.paginate({:page => params[:page], :per_page => NO_OF_ROWS_PER_PAGE})
     render "git_logs/index" 
   end

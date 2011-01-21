@@ -17,7 +17,9 @@ Timesheet::Application.routes.draw do
 #  match '/authors_timesheet' => 'authors#create_timesheet'
 #  match '/repositories_timesheet' => 'repositories#create_timesheet'
   match '/git_logs_timesheet' => 'git_logs#create_timesheet'
-
+  
+  match '/authors_timesheet/:author' => 'authors#create_timesheet'
+  match '/repositories_timesheet/:repository' => 'repositories#create_timesheet'
 #   match 'repositories_timesheet/authors/create_timesheet' => 'authors#create_timesheet' 
 #   match 'authors_timesheet/repositories/create_timesheet' => 'repositories#create_timesheet'
 

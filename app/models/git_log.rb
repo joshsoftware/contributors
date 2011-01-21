@@ -7,7 +7,7 @@ class GitLog < ActiveRecord::Base
   #scope for generating timesheet, called from author and repository controller
   scope :by_repository, lambda { |repository| { :conditions => ['repository_id = ?', repository] } }
   scope :by_author, lambda { |author| { :conditions => ['author_id = ?', author] } }
-  scope :from, lambda { |date| { :conditions => ['committed_at > ?', date] } }
+  scope :fromdate, lambda { |date| { :conditions => ['committed_at > ?', date] } }
   scope :to, lambda { |date| { :conditions => ['committed_at <= ?', date] } }
 
   def create_author_repository
