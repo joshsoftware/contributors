@@ -45,9 +45,7 @@ class RepositoriesController < ApplicationController
   def create_timesheet
     # get repository (mandatory): params[:repository]
     @repository = Repository.find(params[:repository])
-    @authors = @repository.authors 
-    
-    to =  params[:to].blank? ? Time.now.strftime("%Y-%m-%d %H:%M:%S") : params[:to] 
+    to = params[:to] || Time.now
 
     @logs = GitLog.to(to).by_repository(@repository)
     @logs = @logs.by_author(params[:author]) if !params[:author].blank?
@@ -61,70 +59,6 @@ class RepositoriesController < ApplicationController
     render "git_logs/index" 
   end
 
-
-  # user defined method th parse, verify the git url and populate the repository
-=begin
-def create
-    # if git url is not present in db, create new repo and assign current user as owner
-    if (@repo = Repository.find_by_url(params['repository']['url'])) == nil
-      @repo = Repository.new(params['repository'])
-      @repo.user = current_user
-    else  #else if old git url, load it. 
-      flash[:notice] = "Repository Present"
-      #    @repo = Repository.find_by_url(params['repository']['url'])
-    end
-
-    #if url does not match given structure, flash notice and redirect to index
-    if /^\w*[@|:][\/\/]*github.com[:?\/]*(([\w]+)\/([\w\-\.]+)).git$/.match(params['repository']['url']) == nil
-      flash[:notice] = "Repository Link Invalid"
-      redirect_to :action => "index"
-    else # if matches the structure then extract the author name and project name in repo_name
-      repo_name = /^\w*[@|:][\/\/]*github.com[:?\/]*(([\w]+)\/([\w\-\.]+)).git$/.match(params['repository']['url']).match.captures
-    end
-
-    if repo_name.first.blank? # if repo_name.first is blank, flash error and redirect to index
-      flash[:notice] = "GitLog Url Cannot Be Blank"
-      redirect_to :action => "index"
-    end
-
-    @repo.name = repo_name.first
-    str = "http://github.com/api/v2/json/commits/list/" + repo_name.first  + "/master"
-    url = URI.parse(str)
-    res = Net::HTTP.get_response(url)
-<<<<<<< HEAD
-    if res.class == Net::HTTPOK
-      @repo.user = current_user
-      @repo.save
-=======
-    if res.class == Net::HTTPOK #the json url is valid if response is OK
-      @repo.save  
->>>>>>> 8676cf6f612941429cb45e1969507dfeca5ccb9d
-      @author_repository = AuthorRepository.new
-      commits = MultiJson.decode(res.body)
-      commits['commits'].each do |commit|
-        @git_log = GitLog.new
-        @git_log.sha = commit['id']
-        @git_log.comment = commit['message']
-        @git_log.committed_at = commit['committed_date']
-
-        @author = Author.find_by_name(commit['author']['name']) 
-        if (@author == nil or @author.blank? ) 
-          @author = Author.new
-          @author.name = commit['author']['name']
-          @author.email = commit['author']['email']
-          @author.save
-        end
-        @git_log.author = @author_repository.author = @author
-        @git_log.repository = @author_repository.repository = @repo
-        @author_repository.save
-        @git_log.save
-      end
-      flash[:notice] = "Successfully Created"
-    elsif res.class == Net::HTTPNotFound
-      flash[:notice] = "Repository Invalid"
-    end
-    redirect_to :action => "index"
-=end
 
   def create
     #if url passed is not blank and matches the structure then   
@@ -166,7 +100,10 @@ def create
             end
             @git_log.author = @author_repository.author = @author
             @git_log.repository = @author_repository.repository = @repo
-            @author_repository.save
+            #@author_repository.save
+            if AuthorRepository.exists?(:repository_id => @repo, :author_id => @author) == false
+              @author_repository.save
+            end
             @git_log.save
           end#do
         end#inner if
