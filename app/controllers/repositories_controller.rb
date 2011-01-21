@@ -100,7 +100,10 @@ class RepositoriesController < ApplicationController
             end
             @git_log.author = @author_repository.author = @author
             @git_log.repository = @author_repository.repository = @repo
-            @author_repository.save
+            #@author_repository.save
+            if AuthorRepository.exists?(:repository_id => @repo, :author_id => @author) == false
+              @author_repository.save
+            end
             @git_log.save
           end#do
         end#inner if
