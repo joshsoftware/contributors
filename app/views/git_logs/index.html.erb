@@ -45,8 +45,8 @@
     <%= will_paginate @git_logs, :remote => {:update => "logs"}%>
 <div id="logs">    
 <table>
-    <% if !@git_logs.blank? %>
       <tr>
+    <% if !@git_logs.blank? %>
         <th>Author</th>
         <th>Repository</th>
         <th>Comment</th>
@@ -60,7 +60,7 @@
        <td><%= git_log.committed_at %></td>
       </tr>
     <% end %>
-  <% end %>
   </table>
+  <% end %>
 </div>
   <br />
